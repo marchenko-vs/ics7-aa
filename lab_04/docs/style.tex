@@ -1,0 +1,34 @@
+\newcommand{\titlepageteachers}[7]
+{
+	{
+		\small
+		\begin{tabularx}{\textwidth}{@{}>{\hsize=.5\hsize}X>{\hsize=.25\hsize}X>{\hsize=.25\hsize}X@{}}
+			\titlepagestudent{#1}{#2}
+			\titlepageothers{#3}{#4}
+			\titlepageothers{#5}{#6}
+		\end{tabularx}
+	}
+}
+
+\renewcommand{\makereporttitle}[9]
+{
+	\documentmeta{Отчет}{#8}{#3 #4}{#5}
+	
+	\begin{titlepage}
+		\centering
+		
+		\titlepageheader{#1}{#2}
+		\vspace{15.8mm}
+		
+		\titlepagereporttitle{#3}{#4}{#5}{#6}
+		\vfill
+		
+		\titlepageteachers{#7}{#8}{Преподаватель}{#9}{Преподаватель}{Л.~Л.~Волкова}{}
+		
+		\vspace{14mm}
+		
+		Москва --- {\the\year} г.
+	\end{titlepage}
+	
+	\setcounter{page}{2}
+}

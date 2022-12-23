@@ -1,0 +1,313 @@
+\chapter{Конструкторская часть}
+\section{Описание алгоритмов}
+
+На рисунках~\ref{img:reverse_array}--\ref{img:get_min} показаны схемы алгоритмов вспомогательных функций, которые используются в рассматриваемых алгоритмах сортировки. 
+На рисунках~\ref{img:cocktail_sort_1}--\ref{img:bucket_sort_4} показаны схемы трех алгоритмов сортировки --- перемешиванием, поразрядной и блочной.
+
+\includeimage
+    {reverse_array}
+    {f}
+    {H}
+    {0.8\textwidth}
+    {Алгоритм получения массива, в котором элементы находятся в порядке, обратном исходному}
+
+\includeimage
+    {get_max}
+    {f}
+    {H}
+    {0.8\textwidth}
+    {Алгоритм поиска наибольшего элемента в массиве}
+    
+\includeimage
+    {get_min}
+    {f}
+    {H}
+    {0.8\textwidth}
+    {Алгоритм поиска наименьшего элемента в массиве}
+    
+\includeimage
+    {cocktail_sort_1}
+    {f}
+    {H}
+    {0.75\textwidth}
+    {Алгоритм сортировки перемешиванием --- ч. 1}
+    
+\includeimage
+    {cocktail_sort_2}
+    {f}
+    {H}
+    {0.8\textwidth}
+    {Алгоритм сортировки перемешиванием --- ч. 2}
+    
+\includeimage
+    {counting_sort}
+    {f}
+    {H}
+    {0.9\textwidth}
+    {Алгоритм сортировки подсчетом}
+    
+\includeimage
+    {radix_sort_1}
+    {f}
+    {H}
+    {0.75\textwidth}
+    {Алгоритм поразрядной сортировки --- ч. 1}
+    
+\includeimage
+    {radix_sort_2}
+    {f}
+    {H}
+    {0.6\textwidth}
+    {Алгоритм поразрядной сортировки --- ч. 2}
+    
+\includeimage
+    {radix_sort_3}
+    {f}
+    {H}
+    {0.6\textwidth}
+    {Алгоритм поразрядной сортировки --- ч. 3}
+    
+\includeimage
+    {radix_sort_4}
+    {f}
+    {H}
+    {0.45\textwidth}
+    {Алгоритм поразрядной сортировки --- ч. 4}
+    
+\includeimage
+    {pos_bucket_sort}
+    {f}
+    {H}
+    {0.9\textwidth}
+    {Алгоритм блочной сортировки для неотрицательных чисел}
+    
+\includeimage
+    {bucket_sort_1}
+    {f}
+    {H}
+    {0.75\textwidth}
+    {Алгоритм блочной сортировки --- ч. 1}
+    
+\includeimage
+    {bucket_sort_2}
+    {f}
+    {H}
+    {0.65\textwidth}
+    {Алгоритм блочной сортировки --- ч. 2}
+    
+\includeimage
+    {bucket_sort_3}
+    {f}
+    {H}
+    {0.7\textwidth}
+    {Алгоритм блочной сортировки --- ч. 3}
+    
+\includeimage
+    {bucket_sort_4}
+    {f}
+    {H}
+    {0.45\textwidth}
+    {Алгоритм блочной сортировки --- ч. 4}  
+
+\section{Модель вычислений}
+
+Обозначим размер массива во всех вычислениях через $N$.
+
+Для вычисления трудоемкости введена следующая модель вычислений.
+
+\begin{enumerate}
+\item
+Операции +, --, *, /, \%, ==, !=, <, <=, >, >= [~], ++, -- --, +=, --= имеют трудоемкость 1.
+
+\item
+Трудоемкость условного оператора рассчитывается следующим образом:
+\begin{equation}
+f_{if} = f_{\text{условия}} +
+	\begin{cases}
+    f_A,~\text{если условие выполняется}, \\
+    f_B,~\text{иначе}.
+    \end{cases}
+\end{equation}
+
+\item
+Трудоемкость цикла рассчитывается как:
+\begin{equation}
+f_{loop} = f_{\text{инициализации}} + f_{\text{сравнения}} + N \cdot (f_{\text{тела}} + f_{\text{инкремента}} +  f_{\text{сравнения}}).
+\end{equation}
+
+\item
+Трудоемкость вызова функции равна 0.
+\end{enumerate}
+
+\section{Трудоемкость алгоритмов}
+
+\subsection{Алгоритм сортировки перемешиванием}
+\label{sub:cocktail_sort}
+
+Сравнение для проверки количества элементов в массиве:
+\begin{equation}
+f_1 = 1.
+\end{equation}
+
+Блок инициализации:
+\begin{equation}
+f_2 = 4.
+\end{equation}
+
+Основной цикл:
+\begin{equation}
+\begin{gathered}
+f_3 = 1 + N \cdot ((1 + 2 + N \cdot (5 + 4 + 1 + 2) + 1 + 2) + \\ + 3 + N \cdot (5 + 4 + 1) + 1)) = \\ = 1 + N \cdot ((6 + 12 \cdot N) + 4 + 10 \cdot N) = \\ = 1 + N \cdot (10 + 22 \cdot N) = \\ = 1 + 10 \cdot N + 22 \cdot N^2.
+\end{gathered}
+\end{equation}
+
+Таким образом, трудоемкость алгоритма сортировки перемешиванием равна:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 = 1 + 4 + 1 + 10 \cdot N + 22 \cdot N^2 = \\ = 6 + 10 \cdot N + 22 \cdot N^2 \approx O(N^2).
+\end{gathered}
+\end{equation}
+
+\subsection{Алгоритм поразрядной сортировки}
+
+Обозначим через $M$ количество десятичных разрядов наибольшего элемента в массиве.
+
+Сравнение для проверки количества элементов в массиве:
+\begin{equation}
+f_1 = 1.
+\end{equation}
+
+Блок инициализации:
+\begin{equation}
+f_2 = 2.
+\end{equation}
+
+Первый цикл:
+\begin{equation}
+f_3 = 2 + 4 \cdot N.
+\end{equation}
+
+Второй блок инициализации:
+\begin{equation}
+f_4 = 3.
+\end{equation}
+
+Функция, возвращающая массив, элементы которого находятся в порядке, обратном исходному:
+\begin{equation}
+f_5 = 1 + 2 + 2 + 4 \cdot \frac{N}{4} = 5 + N.
+\end{equation}
+
+Цикл для работы с отрицательными элементами входного массива:
+\begin{equation}
+\begin{gathered}
+f_6 = 2 + 3 + 8 \cdot N + 1 + 2 + 2 + 6 \cdot (N - 1) + \\ + 3 + M \cdot (1 + 2 + 2 + 8 \cdot \frac{N}{2} + 2 + 9 \cdot 7 + 3 + \\ + 11 \cdot \frac{N}{2} + 2 + 5 \cdot \frac{N}{2} + 3) + 5 + N = \\ = 12 + 15 \cdot N + M \cdot (78 + 12 \cdot N) = \\ = 12 + 15 \cdot N + 78 \cdot M + 12 \cdot N \cdot M.
+\end{gathered}
+\end{equation}
+
+Цикл для работы с неотрицательными элементами входного массива:
+\begin{equation}
+\begin{gathered}
+f_7 = 2 + 3 + 7 \cdot N + 1 + 2 + 2 + 6 \cdot (N - 1) + \\ + 3 + M \cdot (1 + 2 + 2 + 8 \cdot \frac{N}{2} + 2 + 9 \cdot 7 + 3 + \\ + 11 \cdot \frac{N}{2} + 2 + 5 \cdot \frac{N}{2} + 3) = \\ = 12 + 14 \cdot N + 78 \cdot M + 12 \cdot N \cdot M.
+\end{gathered}
+\end{equation}
+
+Цикл для записи отрицательных элементов в исходный массив:
+\begin{equation}
+f_8 = 3 + 7 \cdot \frac{N}{2}.
+\end{equation}
+
+Цикл для записи неотрицательных элементов в исходный массив:
+\begin{equation}
+f_9 = 3 + 6 \cdot \frac{N}{2}.
+\end{equation}
+
+Таким образом, трудоемкость алгоритма поразрядной сортировки равна:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 + f_4 + f_5 + f_6 + f_7 + f_8 + f_9 = \\ = 43 + 40.5 \cdot N + 156 \cdot M + 24 \cdot N \cdot M \approx \\ \approx O(N \cdot M).
+\end{gathered}
+\end{equation}
+
+\subsection{Алгоритм блочной сортировки}
+
+Обозначим через $K$ количество сегментов, используемых для сортировки элементов.
+
+Сравнение для проверки количества элементов в массиве:
+\begin{equation}
+f_1 = 1.
+\end{equation}
+
+Блок инициализации:
+\begin{equation}
+f_2 = 2.
+\end{equation}
+
+Подсчет количества отрицательных и неотрицательных элементов в исходном массиве:
+\begin{equation}
+f_3 = 2 + 5 \cdot N.
+\end{equation}
+
+Второй блок инициализации:
+\begin{equation}
+f_4 = 3.
+\end{equation}
+
+Функция для поиска наибольшего элемента в массиве:
+\begin{equation}
+f_5 = 2 + 2 + 6 \cdot (\frac{N}{2} - 1) = 4 + 6 \cdot \frac{N}{2} - 6 = 3 \cdot N - 2.
+\end{equation}
+
+Функция для поиска наименьшего элемента в массиве:
+\begin{equation}
+f_6 = 2 + 2 + 6 \cdot (\frac{N}{2} - 1) = 4 + 6 \cdot \frac{N}{2} - 6 = 3 \cdot N - 2.
+\end{equation}
+
+Функция, возвращающая массив, элементы которого находятся в порядке, обратном исходному:
+\begin{equation}
+f_7 = 3 + 2 + 6 \cdot \frac{N}{4} = 5 + 3 \cdot \frac{N}{2} = 5 + 1.5 \cdot N.
+\end{equation}
+
+Функция, реализующая алгоритм сортировки перемешиванием (значение получено в пункте \ref{sub:cocktail_sort}):
+\begin{equation}
+\begin{gathered}
+f_8 = N^2.
+\end{gathered}
+\end{equation}
+
+Функция для сортировки массива, состоящего из неотрицательных элементов:
+\begin{equation}
+\begin{gathered}
+f_9 = 14 + f_5 + f_6 + 9 \cdot \frac{N}{2} + (5 + f_8) \cdot K + (4 + 9 \cdot \frac{N}{2 \cdot K}) \cdot K = \\ = 14 + 3 \cdot N - 2 + 3 \cdot N - 2 + 4.5 \cdot N + 5 \cdot K + \\ + 18 \cdot K - 4 \cdot N \cdot K + 2 \cdot N^2 \cdot K + 4 \cdot K + 4.5 \cdot N = \\ = 22 \cdot K + 4.5 \cdot N - 4 \cdot N \cdot K + 2 \cdot N^2 \cdot K.
+\end{gathered}
+\end{equation}
+
+Сортировка массива, состоящего из отрицательных элементов:
+\begin{equation}
+f_{10} = 6 + 9 \cdot \frac{N}{2} + f_9 + f_7 = 6 + 4.5 \cdot N + f_7 + f_9.
+\end{equation}
+
+Сортировка массива, состоящего из неотрицательных элементов:
+\begin{equation}
+f_{11} = 6 + 8 \cdot \frac{N}{2} + f_9 = 6 + 4 \cdot N + f_9.
+\end{equation}
+
+Цикл для записи отрицательных элементов в исходный массив:
+\begin{equation}
+f_{12} = 3 + 7 \cdot \frac{N}{2} = 3 + 3.5 \cdot N.
+\end{equation}
+
+Цикл для записи неотрицательных элементов в исходный массив:
+\begin{equation}
+f_{13} = 3 + 6 \cdot \frac{N}{2} = 3 + 3 \cdot N.
+\end{equation}
+
+Таким образом, трудоемкость алгоритма блочной сортировки равна:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 + f_4 + f_{10} + f_{11} + f_{12} + f_{13} = \\ = 8 + 5 \cdot N + 6 + 4.5 \cdot N + f_7 + f_9 + 6 + 4 \cdot N + \\ + f_9 + 3 + 3.5 \cdot N + 3 + 3 \cdot N = \\ = 26 + 20 \cdot N + f_7 + 2 \cdot f_9 = \\ = 26 + 20 \cdot N + 5 + 1.5 \cdot N + 2 \cdot (22 \cdot K + \\ + 4.5 \cdot N - 4 \cdot N \cdot K + 2 \cdot N^2 \cdot K) = \\ = 75 + 30.5 \cdot N - 8 \cdot N \cdot K + 2 \cdot N^2 \cdot K \approx \\ \approx O(N^2 \cdot K).
+\end{gathered}
+\end{equation}
+
+\section*{Вывод}
+
+В текущем разделе на основе теоретических данных, полученных из аналитического раздела, были построены схемы трех алгоритмов сортировки, а также оценены их трудоемкости.

@@ -1,0 +1,132 @@
+\chapter{Конструкторская часть}
+
+\section{Описание алгоритмов}
+
+На рисунках~\ref{img:levenshtein}--\ref{img:damerau_levenshtein_recursive_cache_2} показаны схемы четырех алгоритмов вычисления редакционного расстояния.
+
+\includeimage
+    {levenshtein}
+    {f}
+    {H}
+    {1\textwidth}
+    {Итерационный алгоритм поиска расстояния Левенштейна}
+    
+\includeimage
+    {damerau_levenshtein_1}
+    {f}
+    {H}
+    {1\textwidth}
+    {Итерационный алгоритм поиска расстояния Дамерау-Левенштейна --- ч. 1}
+    
+\includeimage
+    {damerau_levenshtein_2}
+    {f}
+    {H}
+    {1\textwidth}
+    {Итерационный алгоритм поиска расстояния Дамерау-Левенштейна --- ч. 2}
+    
+\includeimage
+    {damerau_levenshtein_recursive}
+    {f}
+    {H}
+    {.6\textwidth}
+    {Рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна}
+    
+\includeimage
+    {damerau_levenshtein_recursive_cache_1}
+    {f}
+    {H}
+    {.6\textwidth}
+    {Рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна с кэшем --- ч. 1}
+    
+\includeimage
+    {damerau_levenshtein_recursive_cache_2}
+    {f}
+    {H}
+    {.6\textwidth}
+    {Рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна с кэшем --- ч. 2}
+
+\section{Описание типов данных}
+
+Для реализации алгоритма поиска расстояния Левенштейна и трех модификаций алгоритма поиска расстояния Дамерау-Левенштейна были использованы следующие типы данных:
+\begin{enumerate}
+\item[1)] строка --- класс \textbf{std::string} из стандартной библиотеки языка \textbf{C\texttt{++}};
+\item[2)] длина строки --- переменная типа \textbf{std::size\_t};
+\item[3)] матрица --- вектор векторов типа \textbf{std::vector}, состоящий из элементов типа \textbf{int}.
+\end{enumerate}
+
+\section{Оценка затрат алгоритмов по памяти}
+
+Итерационные алгоритмы поиска расстояния Левенштейна и Дамерау-Левенштейна не отличаются по использованию памяти.
+
+\subsection{Итерационный алгоритм поиска расстояния Левенштейна (Дамерау-Левенштейна)}
+
+Затраты по памяти для итерационного алгоритма поиска расстояния Левенштейна (Дамерау-Левенштейна).
+
+\begin{enumerate}
+\item Длины строк $N$ и $M$: $2 \cdot \mbox{sizeof}(int)$.
+\item Строки: $(N + M + 2) \cdot \mbox{sizeof}(char)$.
+\item Матрица: $(N + 1) \cdot (M + 1) \cdot \mbox{sizeof}(int) + 2 \cdot \mbox{sizeof}(int)$.
+\item Вспомогательные переменные $\mbox{i}, \mbox{j}$: $2 \cdot \mbox{sizeof}(int)$.
+\item Адрес возврата.
+\end{enumerate}
+
+Суммарные затраты по памяти: 
+
+\begin{equation}
+\begin{gathered}
+I = (N + 1) \cdot (M + 1) \cdot \mbox{sizeof}(int) + 4 \cdot \mbox{sizeof}(int) + \\ + (N + M + 2) \cdot \mbox{sizeof}(char).
+\end{gathered}
+\end{equation}
+
+\subsection{Рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна}
+
+Затраты по памяти для рекурсивного алгоритма поиска расстояния
+Дамерау-Левенштейна для одного вызова.
+
+\begin{enumerate}
+\item Длины строк $N$ и $M$: $2 \cdot \mbox{sizeof}(int)$.
+\item Строки: $(N + M + 2) \cdot \mbox{sizeof}(char)$.
+\item Вспомогательные переменные $\mbox{i}, \mbox{j}$: $2 \cdot \mbox{sizeof}(int)$.
+\item Адрес возврата.
+\end{enumerate}
+
+Пусть $R$ --- количество рекурсивных вызовов. 
+Тогда суммарные затраты по памяти: 
+
+\begin{equation}
+\begin{gathered}
+I = R \cdot (4 \cdot \mbox{sizeof}(int) + (N + M + 2) \cdot \mbox{sizeof}(char)).
+\end{gathered}
+\end{equation}
+
+\subsection{Рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна с кэшем}
+
+Затраты по памяти для рекурсивного алгоритма поиска расстояния Дамерау-Левенштейна с кэшем для одного вызова.
+
+\begin{enumerate}
+\item Длины строк $N$ и $M$: $2 \cdot \mbox{sizeof}(int)$.
+\item Строки: $(N + M + 2) \cdot \mbox{sizeof}(char)$.
+\item Матрица: $(N + 1) \cdot (M + 1) \cdot \mbox{sizeof}(int) + 2 \cdot \mbox{sizeof}(int)$.
+\item Вспомогательные переменные $\mbox{i}, \mbox{j}$: $2 \cdot \mbox{sizeof}(int)$.
+\item Адрес возврата.
+\end{enumerate}
+
+Пусть $R$ --- количество рекурсивных вызовов. 
+Тогда суммарные затраты по памяти:
+
+\begin{equation}
+\begin{gathered}
+I = R \cdot (6 \cdot \mbox{sizeof}(int) + (N + M + 2) \cdot \mbox{sizeof}(char)) + \\ + (N + 1) \cdot (M + 1) \cdot \mbox{sizeof}(int).
+\end{gathered}
+\end{equation}
+
+\section*{Вывод из конструкторской части}
+
+В текущем разделе на основе теоретических данных, полученных из аналитического раздела, для четырех рассматриваемых в данной лабораторной работе алгоритмов:
+
+\begin{enumerate}
+\item[1)] были построены схемы;
+\item[2)] были выбраны необходимые для реализации этих алгоритмов типы данных;
+\item[3)] была проведена оценка затрачиваемого объема памяти.
+\end{enumerate}
