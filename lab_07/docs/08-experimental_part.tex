@@ -1,0 +1,1965 @@
+\chapter{Исследовательская часть}
+
+\section{Технические характеристики устройства}
+
+Технические характеристики устройства, на котором было проведено измерение времени работы алгоритмов:
+
+\begin{enumerate}
+\item[1)]
+операционная система Windows 11 Pro x64;
+\item[2)]
+оперативная память 16 ГБ;
+\item[3)]
+процессор Intel\textregistered ~Core\texttrademark ~i7-4790K @ 4.00 ГГц.
+\end{enumerate}
+
+\section{Время работы алгоритмов}
+
+Время работы функций замерено с помощью функции \textbf{process\_time\_ns()} модуля \textbf{time}, которая возвращает количество наносекунд суммы системного и пользовательского процессорного времени текущего процесса.
+
+В таблице~\ref{tabular:time} приведено время работы в миллисекундах функций, реализующих алгоритмы для решения задачи коммивояжера, в зависимости от количества вершин.
+
+На рисунке~\ref{img:graph} изображена зависимость времени работы в миллисекундах функций, реализующих два алгоритма для решения задачи коммивояжера, от количества вершин.
+
+\pagebreak
+\begin{table}[H]
+\caption{Время работы в миллисекундах функций, реализующих алгоритмы для решения задачи коммивояжера, в зависимости от количества вершин}
+\label{tabular:time}
+\begin{tabular}{|>{\raggedleft}p{5cm}|>{\raggedleft}p{5cm}|>{\raggedleft}p{5cm}|}
+\hline
+\textbf{Количество вершин} & \textbf{Алгоритм полного перебора} & \textbf{Муравьиный алгоритм}
+\tabularnewline
+\hline
+5 & 10 & 93
+\tabularnewline
+\hline
+6 & 67 & 134
+\tabularnewline
+\hline
+7 & 189 & 234
+\tabularnewline
+\hline
+8 & 981 & 342
+\tabularnewline
+\hline
+9 & 3678 & 452
+\tabularnewline
+\hline
+10 & 9377 & 678
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\includeimage
+    {graph}
+    {f}
+    {H}
+    {1\textwidth}
+    {Зависимость времени работы в миллисекундах функций, реализующих два алгоритма для решения задачи коммивояжера, от количества вершин}
+
+\pagebreak
+\section{Параметризация муравьиного алгоритма}
+
+Автоматическая параметризация муравьиного алгоритма была проведена на двух классах данных. 
+В качестве входных данных были сгенерированы две матрицы размером $10 \times 10$. 
+Муравьиный алгоритм был запущен для всех значений $\alpha \in (0, 1)$ и $p \in (0, 1)$ с шагом $0.1$. 
+В качестве эталона был выбран результат работы алгоритма полного перебора для решения задачи коммивояжера.
+
+\subsection{Класс данных №1}
+
+Все расстояния между вершинами для класса данных №1 находятся на отрезке $[1; 5]$. 
+Матрица расстояний для класса данных №1:
+\begin{equation}
+A = 
+\begin{bmatrix}
+0 & 3 & 1 & 4 & 5 & 4 & 5 & 5 & 4 & 4 \\
+3 & 0 & 3 & 3 & 5 & 1 & 2 & 2 & 5 & 5 \\
+1 & 3 & 0 & 3 & 5 & 3 & 5 & 2 & 3 & 2 \\
+4 & 3 & 3 & 0 & 5 & 2 & 4 & 4 & 4 & 5 \\
+5 & 5 & 5 & 5 & 0 & 3 & 1 & 1 & 3 & 1 \\
+4 & 1 & 3 & 2 & 3 & 0 & 5 & 2 & 4 & 2 \\
+5 & 2 & 5 & 4 & 1 & 5 & 0 & 5 & 3 & 3 \\
+5 & 2 & 2 & 4 & 1 & 2 & 5 & 0 & 3 & 5 \\
+4 & 5 & 3 & 4 & 3 & 4 & 3 & 3 & 0 & 4 \\
+4 & 5 & 2 & 5 & 1 & 2 & 3 & 5 & 4 & 0 \\
+\end{bmatrix}
+\end{equation}
+
+В таблице~\ref{tabular:params1} показаны значения, полученные в результате проведения параметризации муравьиного алгоритма для класса данных №1.
+
+\pagebreak
+\begin{table}[H]
+\caption{Параметры для класса данных №1}
+\label{tabular:params1}
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.1 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.1 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.2 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.2 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.3 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.4 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.5 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.5 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.6 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.6 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.6 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.7 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.7 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.7 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.8 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.8 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.8 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.9 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.1 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.1 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.2 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.2 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.3 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.4 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.5 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.5 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.5 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.6 & 50 & 20 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.6 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.6 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.7 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.7 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.8 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.8 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.8 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.9 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.9 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.1 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.1 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.1 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.2 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.2 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.3 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.4 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.5 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.5 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.6 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.6 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.6 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.7 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.7 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.8 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.8 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.8 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.9 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.1 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.1 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.2 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.2 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.3 & 100 & 20 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.3 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.4 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.4 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.5 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.5 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.6 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.6 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.6 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.7 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.7 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.8 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.8 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.8 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.9 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.1 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.1 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.2 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.2 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.3 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.4 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.5 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.5 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.6 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.6 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.6 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.7 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.7 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.8 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.8 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.8 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.9 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.1 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.1 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.2 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.2 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.3 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.4 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.5 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.5 & 200 & 20 & 2 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.6 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.6 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.6 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.7 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.7 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.8 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.8 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.8 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.9 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.1 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.1 & 200 & 20 & 2 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.2 & 50 & 20 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.2 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.3 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.3 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.3 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.4 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.5 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.5 & 200 & 20 & 2 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.6 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.6 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.6 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.7 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.7 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.8 & 50 & 20 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.8 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.8 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.9 & 100 & 20 & 3 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.1 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.1 & 100 & 20 & 3 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.1 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.2 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.2 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.3 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.4 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.5 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.5 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.5 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.6 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.6 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.6 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.7 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.7 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.7 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.8 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.8 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.8 & 200 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.9 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.9 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.1 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.1 & 100 & 20 & 3 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.1 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.2 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.2 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.2 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.3 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.3 & 100 & 20 & 3 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.3 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.4 & 50 & 20 & 4 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.4 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.4 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.5 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.5 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.5 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.6 & 50 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.6 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.6 & 200 & 20 & 0 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.7 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.7 & 100 & 20 & 2 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.7 & 200 & 20 & 2 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.8 & 50 & 20 & 3 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.8 & 100 & 20 & 3 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.8 & 200 & 20 & 2 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params1}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.9 & 50 & 20 & 2 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.9 & 100 & 20 & 1 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.9 & 200 & 20 & 1 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Класс данных №2}
+
+Все расстояния между вершинами для класса данных №2 находятся на отрезке $[100; 3000]$. 
+Матрица расстояний для класса данных №2:
+\begin{equation}
+B = 
+\begin{bmatrix}
+0 & 2573 & 1541 & 1785 & 237 & 1194 & 1950 & 1710 & 840 & 1608 \\
+2573 & 0 & 2158 & 376 & 2854 & 1395 & 967 & 2254 & 562 & 2803 \\
+1541 & 2158 & 0 & 2033 & 2548 & 2867 & 815 & 2421 & 688 & 134 \\
+1785 & 376 & 2033 & 0 & 2243 & 116 & 118 & 2842 & 926 & 1618 \\
+237 & 2854 & 2548 & 2243 & 0 & 1677 & 2177 & 2252 & 2102 & 228 \\
+1194 & 1395 & 2867 & 116 & 1677 & 0 & 157 & 1367 & 637 & 2295 \\
+1950 & 967 & 815 & 118 & 2177 & 157 & 0 & 105 & 804 & 2111 \\
+1710 & 2254 & 2421 & 2842 & 2252 & 1367 & 105 & 0 & 159 & 524 \\
+840 & 562 & 688 & 926 & 2102 & 637 & 804 & 159 & 0 & 1110 \\
+1608 & 2803 & 134 & 1618 & 228 & 2295 & 2111 & 524 & 1110 & 0 \\
+\end{bmatrix}
+\end{equation}
+
+В таблице~\ref{tabular:params2} показаны значения, полученные в результате проведения параметризации муравьиного алгоритма для класса данных №2.
+
+\begin{table}[H]
+\caption{Параметры для класса данных №2}
+\label{tabular:params2}
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.1 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.1 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.1 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.2 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.2 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.2 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.3 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.3 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.3 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.4 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.4 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.4 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.5 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.5 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.5 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.6 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.6 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.6 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.7 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.7 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.7 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.8 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.8 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.8 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.9 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.9 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.1 & 0.9 & 0.9 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.1 & 50 & 3926 & 584 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.1 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.1 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.2 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.2 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.2 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.3 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.3 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.3 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.4 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.4 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.4 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.5 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.5 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.5 & 200 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.6 & 50 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.6 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.6 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.7 & 50 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.7 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.7 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.8 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.8 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.8 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.9 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.9 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.2 & 0.8 & 0.9 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.1 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.1 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.1 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.2 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.2 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.2 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.3 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.3 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.3 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.4 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.4 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.4 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.5 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.5 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.5 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.6 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.6 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.6 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.7 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.7 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.7 & 200 & 3926 & 387 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.8 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.8 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.8 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.9 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.9 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.3 & 0.7 & 0.9 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.1 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.1 & 100 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.1 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.2 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.2 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.2 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.3 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.3 & 100 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.3 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.4 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.4 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.4 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.5 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.5 & 100 & 3926 & 584 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.5 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.6 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.6 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.6 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.7 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.7 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.7 & 200 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.8 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.8 & 100 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.8 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.9 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.9 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.4 & 0.6 & 0.9 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.1 & 50 & 3926 & 847 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.1 & 100 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.1 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.2 & 50 & 3926 & 1338 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.2 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.2 & 200 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.3 & 50 & 3926 & 1454 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.3 & 100 & 3926 & 584 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.3 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.4 & 50 & 3926 & 608 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.4 & 100 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.4 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.5 & 50 & 3926 & 847 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.5 & 100 & 3926 & 584 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.5 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.6 & 50 & 3926 & 1367 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.6 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.6 & 200 & 3926 & 584 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.7 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.7 & 100 & 3926 & 789 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.7 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.8 & 50 & 3926 & 1378 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.8 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.8 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.9 & 50 & 3926 & 1085 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.9 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.5 & 0.5 & 0.9 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.1 & 50 & 3926 & 1559 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.1 & 100 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.1 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.2 & 50 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.2 & 100 & 3926 & 1085 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.2 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.3 & 50 & 3926 & 847 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.3 & 100 & 3926 & 708 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.3 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.4 & 50 & 3926 & 1748 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.4 & 100 & 3926 & 789 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.4 & 200 & 3926 & 608 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.5 & 50 & 3926 & 1715 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.5 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.5 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.6 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.6 & 100 & 3926 & 708 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.6 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.7 & 50 & 3926 & 1250 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.7 & 100 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.7 & 200 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.8 & 50 & 3926 & 1453 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.8 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.8 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.9 & 50 & 3926 & 1548 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.9 & 100 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.6 & 0.4 & 0.9 & 200 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.1 & 50 & 3926 & 1588 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.1 & 100 & 3926 & 789 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.1 & 200 & 3926 & 708 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.2 & 50 & 3926 & 2288 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.2 & 100 & 3926 & 1610 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.2 & 200 & 3926 & 1259 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.3 & 50 & 3926 & 2813 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.3 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.3 & 200 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.4 & 50 & 3926 & 1872 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.4 & 100 & 3926 & 708 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.4 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.5 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.5 & 100 & 3926 & 1808 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.5 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.6 & 50 & 3926 & 1928 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.6 & 100 & 3926 & 1083 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.6 & 200 & 3926 & 387 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.7 & 50 & 3926 & 919 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.7 & 100 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.7 & 200 & 3926 & 1272 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.8 & 50 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.8 & 100 & 3926 & 1250 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.8 & 200 & 3926 & 278 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.9 & 50 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.9 & 100 & 3926 & 708 \\
+\tabularnewline
+\hline
+0.7 & 0.3 & 0.9 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.1 & 50 & 3926 & 0 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.1 & 100 & 3926 & 2922 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.1 & 200 & 3926 & 1250 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.2 & 50 & 3926 & 2309 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.2 & 100 & 3926 & 1913 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.2 & 200 & 3926 & 1673 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.3 & 50 & 3926 & 2609 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.3 & 100 & 3926 & 847 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.3 & 200 & 3926 & 1454 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.4 & 50 & 3926 & 1945 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.4 & 100 & 3926 & 1674 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.4 & 200 & 3926 & 1259 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.5 & 50 & 3926 & 2083 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.5 & 100 & 3926 & 708 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.5 & 200 & 3926 & 1259 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.6 & 50 & 3926 & 2843 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.6 & 100 & 3926 & 1619 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.6 & 200 & 3926 & 1588 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.7 & 50 & 3926 & 2439 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.7 & 100 & 3926 & 568 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.7 & 200 & 3926 & 0 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.8 & 50 & 3926 & 1738 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.8 & 100 & 3926 & 1085 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.8 & 200 & 3926 & 1083 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.9 & 50 & 3926 & 1743 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.9 & 100 & 3926 & 2710 \\
+\tabularnewline
+\hline
+0.8 & 0.2 & 0.9 & 200 & 3926 & 2030 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.1 & 50 & 3926 & 3115 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.1 & 100 & 3926 & 1673 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.1 & 200 & 3926 & 584 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.2 & 50 & 3926 & 708 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.2 & 100 & 3926 & 2340 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.2 & 200 & 3926 & 847 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.3 & 50 & 3926 & 2508 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.3 & 100 & 3926 & 1313 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.3 & 200 & 3926 & 789 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.4 & 50 & 3926 & 3030 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.4 & 100 & 3926 & 2210 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.4 & 200 & 3926 & 789 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.5 & 50 & 3926 & 2850 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.5 & 100 & 3926 & 2773 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.5 & 200 & 3926 & 1660 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.6 & 50 & 3926 & 2288 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.6 & 100 & 3926 & 2217 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.6 & 200 & 3926 & 1660 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.7 & 50 & 3926 & 2350 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.7 & 100 & 3926 & 387 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.7 & 200 & 3926 & 2320 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.8 & 50 & 3926 & 2807 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.8 & 100 & 3926 & 1493 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.8 & 200 & 3926 & 1378 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent Продолжение таблицы~\ref{tabular:params2}
+\begin{table}[H]
+\begin{tabular}{|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{1cm}|>{\raggedleft}p{4cm}|>{\raggedleft}p{3cm}|>{\raggedleft}p{3cm}|}
+\hline
+$\alpha$ & $\beta$ & $p$ & Количество дней & Результат & Ошибка
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.9 & 50 & 3926 & 2633 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.9 & 100 & 3926 & 1559 \\
+\tabularnewline
+\hline
+0.9 & 0.1 & 0.9 & 200 & 3926 & 1420 \\
+\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Вывод из исследовательской части}
+
+В текущем разделе был проведен эксперимент по измерению времени работы двух алгортмов для решения задачи коммивояжера. 
+Согласно полученным при проведении эксперимента данным, муравьиный алгоритм начинает работать в разы быстрее алгоритма полного перебора при количестве вершин больше 7. 
+Также была проведена параметризация для муравьиного алгоритма на двух классах данных. 
+Наиболее подходящие параметры для класса данных №1:
+\begin{enumerate}
+\item[1)] $\alpha = 0.1,~\beta = 0.9,~p = 0.3$;
+\item[2)] $\alpha = 0.1,~\beta = 0.9,~p = 0.4$;
+\item[3)] $\alpha = 0.2,~\beta = 0.8,~p = 0.5$;
+\item[4)] $\alpha = 0.2,~\beta = 0.8,~p = 0.6$;
+\item[5)] $\alpha = 0.2,~\beta = 0.8,~p = 0.8$.
+\end{enumerate}
+Наиболее подходящие параметры для класса данных №2:
+\begin{enumerate}
+\item[1)] $\alpha = 0.1,~\beta = 0.9,~p = 0.1$;
+\item[2)] $\alpha = 0.1,~\beta = 0.9,~p = 0.3$;
+\item[3)] $\alpha = 0.1,~\beta = 0.9,~p = 0.6$;
+\item[4)] $\alpha = 0.2,~\beta = 0.8,~p = 0.7$.
+\end{enumerate}

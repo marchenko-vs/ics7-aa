@@ -1,0 +1,236 @@
+\chapter{Конструкторская часть}
+\section{Описание алгоритмов}
+
+На рисунках~\ref{img:classic}--\ref{img:optimized_winograd_2} показаны схемы трех алгоритмов умножения матриц.
+
+\includeimage
+    {classic}
+    {f}
+    {H}
+    {1\textwidth}
+    {Классический алгоритм умножения матриц}
+    
+\includeimage
+    {winograd_1}
+    {f}
+    {H}
+    {0.9\textwidth}
+    {Алгоритм Копперсмита--Винограда --- ч. 1}
+    
+\includeimage
+    {winograd_2}
+    {f}
+    {H}
+    {0.9\textwidth}
+    {Алгоритм Копперсмита--Винограда --- ч. 2}
+    
+\includeimage
+    {optimized_winograd_1}
+    {f}
+    {H}
+    {0.8\textwidth}
+    {Оптимизированный алгоритм Копперсмита--Винограда --- ч. 1}
+    
+\includeimage
+    {optimized_winograd_2}
+    {f}
+    {H}
+    {0.9\textwidth}
+    {Оптимизированный алгоритм Копперсмита--Винограда --- ч. 2}
+
+\section{Модель вычислений}
+
+Пусть $M$ --- количество строк в первой матрице, $N$ --- количество столбцов в первой матрице и количество строк во второй, а $L$ --- количество столбцов во второй матрице.
+
+Для вычисления трудоемкости введена следующая модель вычислений.
+
+\begin{enumerate}
+\item
+Операции $>>, <<, [], +, -, =, \pluseq, \minuseq, ==, <, >, <=, >=,  !=, ++, --$ имеют трудоемкость 1.
+
+\item
+Операции $*, \%, /$ имеют трудоемкость 2.
+
+\item
+Трудоемкость условного оператора рассчитывается следующим образом:
+\begin{equation}
+f_{if} = f_{\text{условия}} +
+	\begin{cases}
+    f_A,~\text{если условие выполняется}, \\
+    f_B,~\text{иначе}.
+    \end{cases}
+\end{equation}
+
+\item
+Трудоемкость цикла рассчитывается как:
+\begin{equation}
+f_{loop} = f_{\text{инициализации}} + f_{\text{сравнения}} + N \cdot (f_{\text{тела}} + f_{\text{инкремента}} +  f_{\text{сравнения}}).
+\end{equation}
+
+\item
+Трудоемкость вызова функции равна 0.
+\end{enumerate}
+
+\section{Трудоемкость алгоритмов}
+
+\subsection{Классический алгоритм}
+
+Проверка на равенство количества столбцов в первой матрице и количества строк во второй:
+\begin{equation}
+f_1 = 1.
+\end{equation}
+
+Второй вложенный цикл:
+\begin{equation}
+\begin{gathered}
+f_2 = 2 + 9 \cdot N.
+\end{gathered}
+\end{equation}
+
+Первый вложенный цикл:
+\begin{equation}
+\begin{gathered}
+f_3 = 2 + L \cdot (6 + f_2) = 2 + 8 \cdot L + 9 \cdot N \cdot L.
+\end{gathered}
+\end{equation}
+
+Внешний цикл:
+\begin{equation}
+\begin{gathered}
+f_4 = 2 + M \cdot (2 + f_3) = 2 + 4 \cdot M + 8 \cdot M \cdot L + 9 \cdot M \cdot N \cdot L.
+\end{gathered}
+\end{equation}
+
+Таким образом, трудоемкость классического алгоритма умножения матриц равна:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_4 = 3 + 4 \cdot M + 8 \cdot M \cdot L + 9 \cdot M \cdot N \cdot L \approx O(9 \cdot M \cdot N \cdot L).
+\end{gathered}
+\end{equation}
+
+Если при умножении обе входные матрицы квадратные и одинакового порядка, например, $N$, то трудоемкость классического алгоритма равна:
+\begin{equation}
+\begin{gathered}
+f \approx O(9 \cdot N^3).
+\end{gathered}
+\end{equation}
+
+\subsection{Алгоритм Копперсмита--Винограда}
+
+Проверка на равенство количества столбцов в первой матрице и количества строк во второй:
+\begin{equation}
+f_1 = 1.
+\end{equation}
+
+Первый цикл:
+\begin{equation}
+f_2 = 2 + M \cdot (2 + 2 + 4 + \frac{N}{2} \cdot (4 + 15)) = 2 + 8 \cdot M + \frac{19}{2} \cdot M \cdot N.
+\end{equation}
+
+Второй цикл:
+\begin{equation}
+f_3 = 2 + L \cdot (2 + 2 + 4 + \frac{N}{2} \cdot (4 + 15)) = 2 + 8 \cdot L + \frac{19}{2} \cdot N \cdot L.
+\end{equation}
+
+Третий цикл:
+\begin{equation}
+\begin{gathered}
+f_4 = 2 + M \cdot (2 + 2 + L \cdot (2 + 7 + 4 + \frac{N}{2} \cdot (4 + 26))) = \\ = 2 + 4 \cdot M + 13 \cdot M \cdot L + 15 \cdot M \cdot N \cdot L.
+\end{gathered}
+\end{equation}
+
+Если $N$ нечетное:
+\begin{equation}
+f_5 = 2 + M \cdot (2 + 2 + L \cdot (2 + 14)) = 2 + 4 \cdot M + 16 \cdot M \cdot L.
+\end{equation}
+
+Два цикла в теле условного оператора:
+\begin{equation}
+f_6 = 3 +
+	\begin{cases}
+    2 + 4 \cdot M + 16 \cdot M \cdot L, \\
+    0.
+    \end{cases}
+\end{equation}
+
+Таким образом, трудоемкость алгоритма Копперсмита--Винограда при нечетном $N$:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 + f_4 + f_5 + f_6 = \\ = 12 + 16 \cdot M + 8 \cdot L + \frac{19}{2} \cdot M \cdot N + \frac{19}{2} \cdot N \cdot L + \\ + 29 \cdot M \cdot L + 15 \cdot M \cdot N \cdot L \approx O(15 \cdot M \cdot N \cdot L).
+\end{gathered}
+\end{equation}
+
+Трудоемкость алгоритма Копперсмита--Винограда при четном $N$:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 + f_4 + f_5 + f_6 = \\ = 10 + 12 \cdot M + 8 \cdot L + \frac{19}{2} \cdot M \cdot N + \frac{19}{2} \cdot N \cdot L + \\ + 13 \cdot M \cdot L + 15 \cdot M \cdot N \cdot L \approx O(15 \cdot M \cdot N \cdot L).
+\end{gathered}
+\end{equation}
+
+Если при умножении обе входные матрицы квадратные и одинакового порядка, например, $N$, то трудоемкость равна:
+\begin{equation}
+f \approx O(15 \cdot N^3).
+\end{equation}
+
+\subsection{Оптимизированный алгоритм Копперсмита--Винограда}
+
+Проверка на равенство количества столбцов в первой матрице и количества строк во второй, а также инициализация переменной, равной $\frac{N}{2}$:
+\begin{equation}
+f_1 = 1 + 3 = 4.
+\end{equation}
+
+Первый цикл:
+\begin{equation}
+f_2 = 2 + M \cdot (2 + 2 + 2 + \frac{N}{2} \cdot (2 + 11)) = 2 + 6 \cdot M + \frac{13}{2} \cdot M \cdot N.
+\end{equation}
+
+Второй цикл:
+\begin{equation}
+f_3 = 2 + L \cdot (2 + 2 + 2 + \frac{N}{2} \cdot (2 + 11)) = 2 + 6 \cdot L + \frac{13}{2} \cdot N \cdot L.
+\end{equation}
+
+Третий цикл:
+\begin{equation}
+\begin{gathered}
+f_4 = 2 + M \cdot (2 + 2 + L \cdot (2 + 7 + 2 + \frac{N}{2} \cdot (2 + 18))) = \\ = 2 + 4 \cdot M + 11 \cdot M \cdot L + 10 \cdot M \cdot N \cdot L.
+\end{gathered}
+\end{equation}
+
+Если $N$ нечетное:
+\begin{equation}
+f_5 = 2 + M \cdot (2 + 2 + L \cdot (2 + 12)) = 2 + 4 \cdot M + 14 \cdot M \cdot L.
+\end{equation}
+
+Два цикла в теле условного оператора:
+\begin{equation}
+f_6 = 3 +
+	\begin{cases}
+    2 + 4 \cdot M + 14 \cdot M \cdot L, \\
+    0.
+    \end{cases}
+\end{equation}
+
+Таким образом, трудоемкость оптимизированного алгоритма Копперсмита--Винограда при нечетном $N$:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 + f_4 + f_5 + f_6 = \\ = 15 + 14 \cdot M + 6 \cdot L + \frac{13}{2} \cdot M \cdot N + \frac{13}{2} \cdot N \cdot L + \\ + 25 \cdot M \cdot L + 10 \cdot M \cdot N \cdot L \approx O(10 \cdot M \cdot N \cdot L).
+\end{gathered}
+\end{equation}
+
+Трудоемкость оптимизированного алгоритма Копперсмита--Винограда при четном $N$:
+\begin{equation}
+\begin{gathered}
+f = f_1 + f_2 + f_3 + f_4 + f_5 + f_6 = \\ = 13 + 10 \cdot M + 6 \cdot L + \frac{13}{2} \cdot M \cdot N + \frac{13}{2} \cdot N \cdot L + \\ + 11 \cdot M \cdot L + 10 \cdot M \cdot N \cdot L \approx O(10 \cdot M \cdot N \cdot L).
+\end{gathered}
+\end{equation}
+
+Если при умножении обе входные матрицы квадратные и одинакового порядка, например, $N$, то трудоемкость равна:
+\begin{equation}
+f \approx O(10 \cdot N^3).
+\end{equation}
+
+\section*{Вывод из конструкторской части}
+
+В текущем разделе на основе теоретических данных, полученных из аналитического раздела, были построены схемы трех алгоритмов умножения матриц --- классического, Копперсмита--Винограда и оптимизированного алгоритма Копперсмита--Винограда, а также оценены их трудоемкости.
+
+Исходя из полученных данных, наиболее эффективным должен быть классический алгоритм умножения матриц, на втором месте --- оптимизированный алгоритм Копперсмита--Винограда, а на третьем --- его обычная версия.
